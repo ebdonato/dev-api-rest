@@ -6,6 +6,7 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "dev": "nodemon index.js",
+        "start": "node index.js",
         "knex:rollback": "knex migrate:rollback",
         "knex:latest": "knex migrate:latest",
         "knex:down": "knex migrate:down",
@@ -21,12 +22,12 @@
         "express": "^4.17.1",
         "helmet": "^4.6.0",
         "morgan": "^1.10.0",
+        "knex": "^0.21.21",
         "pg": "^8.7.0"
     },
     "devDependencies": {
         "eslint": "^7.31.0",
         "eslint-config-prettier": "^8.3.0",
-        "knex": "^0.21.21",
         "nodemon": "^2.0.12",
         "prettier": "^2.3.2",
         "sqlite3": "^5.0.2"

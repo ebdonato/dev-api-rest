@@ -1,0 +1,28 @@
+version: "3"
+services:
+    db:
+        image: postgres:13
+        environment:
+            POSTGRES_PASSWORD: 123456
+            POSTGRES_USER: postgres
+            POSTGRES_DB: banco
+        volumes:
+            - ./db_data:/var/lib/postgresql/data
+        ports:
+            - 5432:5432
+    api:
+        image: node:14
+        environment:
+            - NODE_ENV=production
+            - PG_CONNECTION_STRING=postgres://postgres:123456@db:5432/banco
+        command: sh -c "npm i && npm start"
+        working_dir: /home/node/api
+        volumes:
+            - .:/home/node/api
+        ports:
+            - 3000:3000
+        expose:
+            - "3000"
+        depends_on:
+            - db
+        restart: on-failure
