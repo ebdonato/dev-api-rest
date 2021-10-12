@@ -105,7 +105,6 @@ module.exports = (app) => {
         const {valor} = {...req.body}
 
         const account = await app.db("Contas").where({idConta}).first()
-        console.log("🚀 ~ file: contas.js ~ line 108 ~ accountTransaction ~ account", account)
 
         const dataTransacao = new Date().toJSON().split("T")[0]
 
