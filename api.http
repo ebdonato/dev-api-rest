@@ -43,7 +43,6 @@ content-type: application/json
 {
     "idPessoa": "2",
     "limiteSaqueDiario": "1000",
-    "flagAtivo": false,
     "tipoConta": "10",
     "dataCriacao": "2021-08-28"
 }
@@ -57,7 +56,6 @@ content-type: application/json
 {
     "idPessoa": "1",
     "limiteSaqueDiario": "400.00",
-    "flagAtivo": true,
     "tipoConta": "2",
     "dataCriacao": "2021-08-28"
 }
