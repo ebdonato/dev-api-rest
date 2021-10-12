@@ -1,3 +1,5 @@
+require("dotenv").config()
+
 const app = require("express")()
 
 const consign = require("consign")
@@ -12,12 +14,7 @@ knex.migrate.latest()
 
 app.db = knex
 
-consign()
-    .include("./utils/middlewares.js")
-    .then("./utils/validation.js")
-    .then("./api")
-    .then("./routes")
-    .into(app)
+consign().include("./utils/middlewares.js").then("./utils/validation.js").then("./api").then("./routes").into(app)
 
 app.all("*", (req, res) => {
     res.status(404).send("🚫 Rota Inválida 🚫")

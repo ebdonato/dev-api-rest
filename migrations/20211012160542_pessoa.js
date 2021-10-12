@@ -6,6 +6,8 @@ exports.up = (knex) => {
     })
 }
 
-exports.down = (knex) => {
-    return knex("Pessoas").where("cpf", "11111111111").del()
-}
+exports.down = (knex) => knex
+
+// exports.down = (knex) => {
+//     return knex("Pessoas").where("cpf", "11111111111").del()
+// }

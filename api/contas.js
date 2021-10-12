@@ -38,7 +38,7 @@ module.exports = (app) => {
             return res.status(400).send(msg)
         }
 
-        account.flagAtivo = !!account.flagAtivo
+        account.flagAtivo = false
 
         account.tipoConta = +account.tipoConta
 
@@ -105,6 +105,7 @@ module.exports = (app) => {
         const {valor} = {...req.body}
 
         const account = await app.db("Contas").where({idConta}).first()
+        console.log("🚀 ~ file: contas.js ~ line 108 ~ accountTransaction ~ account", account)
 
         const dataTransacao = new Date().toJSON().split("T")[0]
 
@@ -119,7 +120,7 @@ module.exports = (app) => {
 
             if (valor < 0) {
                 numberLowerThanOrError(-valor, "Saldo insuficiente", {
-                    threshold: account.saldo,
+                    threshold: +account.saldo,
                     inclusive: true,
                 })
 
@@ -130,13 +131,13 @@ module.exports = (app) => {
                     .sum("valor as withdraws")
                     .first()
 
-                const withdrawRemaining = account.limiteSaqueDiario + withdraws
+                const withdrawRemaining = +account.limiteSaqueDiario + +withdraws
 
                 numberLowerThanOrError(
                     -valor,
                     `Valor excede limite diário de saque. Saque restante: R$ ${withdrawRemaining}`,
                     {
-                        threshold: withdrawRemaining,
+                        threshold: +withdrawRemaining,
                         inclusive: true,
                     }
                 )
@@ -146,7 +147,7 @@ module.exports = (app) => {
             return res.status(400).send(msg)
         }
 
-        const saldo = account.saldo + +valor
+        const saldo = +account.saldo + +valor
 
         const trx = await app.db.transaction()
 
