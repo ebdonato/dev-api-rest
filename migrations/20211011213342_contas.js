@@ -17,7 +17,7 @@ exports.up = function (knex) {
         })
         .createTable("Transacoes", (table) => {
             table.increments("idTransacao").primary()
-            table.integer("idConta").notNullable().unique().references("idPessoa").inTable("Pessoas")
+            table.integer("idConta").notNullable().references("idConta").inTable("Pessoas")
             table.decimal("valor").notNullable()
             table.date("dataTransacao").notNullable()
         })

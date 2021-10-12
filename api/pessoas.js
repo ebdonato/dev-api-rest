@@ -1,6 +1,5 @@
 module.exports = (app) => {
-    const {existsOrError, notExistsOrError, isDateOrError, isValidCPFOrError} =
-        app.utils.validation
+    const {existsOrError, notExistsOrError, isDateOrError, isValidCPFOrError} = app.utils.validation
 
     const savePerson = async (req, res) => {
         const person = {...req.body}
@@ -9,15 +8,9 @@ module.exports = (app) => {
             if (req.params.idPessoa) {
                 person.idPessoa = req.params.idPessoa
 
-                const element = await app
-                    .db("pessoas")
-                    .where({idPessoa: person.idPessoa})
-                    .first()
+                const element = await app.db("Pessoas").where({idPessoa: person.idPessoa}).first()
 
-                existsOrError(
-                    element,
-                    "O ID Pessoa informado não está sendo usado"
-                )
+                existsOrError(element, "ID Pessoa informada não está sendo usada")
             }
 
             existsOrError(person.nome, "Nome não informado")
@@ -27,17 +20,14 @@ module.exports = (app) => {
             isValidCPFOrError(person.cpf, "CPF inválido")
 
             const element = await app
-                .db("pessoas")
+                .db("Pessoas")
                 .where({cpf: person.cpf})
                 .whereNot({idPessoa: person.idPessoa ?? 0})
                 .first()
 
-            notExistsOrError(element, "O CPF informado já está sendo usado")
+            notExistsOrError(element, "CPF informado já está sendo usado")
 
-            existsOrError(
-                person.dataNascimento,
-                "Data de nascimento não informada"
-            )
+            existsOrError(person.dataNascimento, "Data de nascimento não informada")
 
             isDateOrError(person.dataNascimento, "Data de nascimento inválida")
         } catch (msg) {
@@ -45,17 +35,20 @@ module.exports = (app) => {
             return res.status(400).send(msg)
         }
 
-        const db = app.db("pessoas")
+        const db = app.db("Pessoas")
 
-        const query = person.idPessoa
-            ? db.update(person).where({idPessoa: person.idPessoa})
-            : db.insert(person)
+        const query = person.idPessoa ? db.update(person).where({idPessoa: person.idPessoa}) : db.insert(person)
 
-        query.then(() => res.sendStatus(204)).catch(() => res.sendStatus(500))
+        query
+            .then(() => res.sendStatus(204))
+            .catch((error) => {
+                console.error(error)
+                res.sendStatus(500)
+            })
     }
 
     const getPerson = (req, res) => {
-        app.db("pessoas")
+        app.db("Pessoas")
             .where({idPessoa: req.params.idPessoa})
             .first()
             .then((person) => {
@@ -65,7 +58,7 @@ module.exports = (app) => {
     }
 
     const delPerson = (req, res) => {
-        app.db("pessoas")
+        app.db("Pessoas")
             .where({idPessoa: req.params.idPessoa})
             .del()
             .then(() => res.status(204).send())

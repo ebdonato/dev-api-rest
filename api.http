@@ -8,7 +8,7 @@ content-type: application/json
 
 {
     "nome": "Eduardo Batista Donato",
-    "cpf": "11111111111",
+    "cpf": "33333333333",
     "dataNascimento": "1982-08-28"
 }
 
@@ -33,3 +33,76 @@ GET {{URL}}/pessoa/99 HTTP/1.1
 
 # @name excluirPessoa
 DELETE  {{URL}}/pessoa/3 HTTP/1.1
+
+###
+
+# @name criarConta
+POST {{URL}}/conta HTTP/1.1
+content-type: application/json
+
+{
+    "idPessoa": "1",
+    "limiteSaqueDiario": "192.25",
+    "flagAtivo": false,
+    "tipoConta": "10",
+    "dataCriacao": "2021-08-28"
+}
+
+###
+
+# @name atualizarConta
+PUT {{URL}}/conta/2 HTTP/1.1
+content-type: application/json
+
+{
+    "idPessoa": "9",
+    "limiteSaqueDiario": "200.00",
+    "flagAtivo": true,
+    "tipoConta": "2",
+    "dataCriacao": "2021-08-28"
+}
+
+###
+
+# @name obterConta
+GET {{URL}}/conta/1 HTTP/1.1
+
+###
+
+# @name excluirConta
+DELETE  {{URL}}/conta/3 HTTP/1.1
+
+###
+
+# @name obterSaldoConta
+GET {{URL}}/conta/1/saldo HTTP/1.1
+
+###
+
+# @name depositarConta
+PUT {{URL}}/conta/1/depositar HTTP/1.1
+content-type: application/json
+
+{
+    "valor": 10
+}
+
+###
+
+# @name sacarConta
+PUT {{URL}}/conta/1/sacar HTTP/1.1
+content-type: application/json
+
+{
+    "valor": -10
+}
+
+###
+
+# @name ativarDesativarConta
+PUT {{URL}}/conta/1/ativar-desativar HTTP/1.1
+content-type: application/json
+
+{
+    "ativo": false
+}

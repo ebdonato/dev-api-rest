@@ -4,6 +4,6 @@
     "trailingComma": "es5",
     "singleQuote": false,
     "bracketSpacing": false,
-    "printWidth": 80,
+    "printWidth": 120,
     "vueIndentScriptAndStyle": true
 }

@@ -23,8 +23,7 @@ function isValidCPFOrError(cpf, msg) {
 
     let Soma = 0
 
-    for (let i = 1; i <= 9; i++)
-        Soma = Soma + parseInt(cpf.substring(i - 1, i)) * (11 - i)
+    for (let i = 1; i <= 9; i++) Soma = Soma + parseInt(cpf.substring(i - 1, i)) * (11 - i)
 
     let Resto = (Soma * 10) % 11
 
@@ -34,14 +33,35 @@ function isValidCPFOrError(cpf, msg) {
 
     Soma = 0
 
-    for (let i = 1; i <= 10; i++)
-        Soma = Soma + parseInt(cpf.substring(i - 1, i)) * (12 - i)
+    for (let i = 1; i <= 10; i++) Soma = Soma + parseInt(cpf.substring(i - 1, i)) * (12 - i)
 
     Resto = (Soma * 10) % 11
 
     if (Resto == 10 || Resto == 11) Resto = 0
 
     if (Resto != parseInt(cpf.substring(10, 11))) throw msg
+}
+
+function numberGreaterThanOrError(value, msg, {threshold = 0, inclusive = false} = {}) {
+    isNumberOrError(value, msg)
+    if (inclusive && value < threshold) throw msg
+    if (!inclusive && value <= threshold) throw msg
+}
+
+function numberLowerThanOrError(value, msg, {threshold = 0, inclusive = false} = {}) {
+    isNumberOrError(value, msg)
+    if (inclusive && value > threshold) throw msg
+    if (!inclusive && value >= threshold) throw msg
+}
+
+function isNumberOrError(value, msg) {
+    if (typeof value !== "number") throw msg
+    if (!isFinite(value)) throw msg
+}
+
+function isIntegerOrError(value, msg) {
+    isNumberOrError(value, msg)
+    if (!Number.isInteger(value)) throw msg
 }
 
 function equalsOrError(valueA, valueB, msg) {
@@ -76,43 +96,12 @@ function validPhoneNumberOrError(value, msg) {
     if (!re.test(String(value).toLowerCase())) throw msg
 }
 
-function numberGreaterThanOrError(
-    value,
-    msg,
-    {threshold = 0, inclusive = false} = {}
-) {
-    isNumberOrError(value, msg)
-    if (inclusive && value < threshold) throw msg
-    if (!inclusive && value <= threshold) throw msg
-}
-
-function numberLowerThanOrError(
-    value,
-    msg,
-    {threshold = 0, inclusive = false} = {}
-) {
-    isNumberOrError(value, msg)
-    if (inclusive && value > threshold) throw msg
-    if (!inclusive && value >= threshold) throw msg
+function includeOrError(value, valuesArray, msg) {
+    if (!Array.isArray(valuesArray) || !valuesArray.includes(value)) throw msg
 }
 
 function allOrNoneOrError(valuesArray, msg) {
-    if (!valuesArray.every((el) => !!el) && !valuesArray.every((el) => !el))
-        throw msg
-}
-
-function isNumberOrError(value, msg) {
-    if (typeof value !== "number") throw msg
-    if (!isFinite(value)) throw msg
-}
-
-function isIntegerOrError(value, msg) {
-    isNumberOrError(value, msg)
-    if (!Number.isInteger(value)) throw msg
-}
-
-function includeOrError(value, valuesArray, msg) {
-    if (!Array.isArray(valuesArray) || !valuesArray.includes(value)) throw msg
+    if (!valuesArray.every((el) => !!el) && !valuesArray.every((el) => !el)) throw msg
 }
 
 module.exports = {
