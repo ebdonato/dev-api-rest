@@ -106,6 +106,8 @@ module.exports = (app) => {
 
         const account = await app.db("Contas").where({idConta}).first()
 
+        const dataTransacao = new Date().toJSON().split("T")[0]
+
         try {
             existsOrError(valor, "Valor para depósito zero ou não informado")
 
@@ -113,11 +115,31 @@ module.exports = (app) => {
 
             existsOrError(account, "ID Conta informada não está sendo usada")
 
+            existsOrError(account.flagAtivo, "Conta informada não está ativa")
+
             if (valor < 0) {
                 numberLowerThanOrError(-valor, "Saldo insuficiente", {
                     threshold: account.saldo,
                     inclusive: true,
                 })
+
+                const {withdraws = 0} = await app
+                    .db("Transacoes")
+                    .where({idConta, dataTransacao})
+                    .where("valor", "<", 0)
+                    .sum("valor as withdraws")
+                    .first()
+
+                const withdrawRemaining = account.limiteSaqueDiario + withdraws
+
+                numberLowerThanOrError(
+                    -valor,
+                    `Valor excede limite diário de saque. Saque restante: R$ ${withdrawRemaining}`,
+                    {
+                        threshold: withdrawRemaining,
+                        inclusive: true,
+                    }
+                )
             }
         } catch (msg) {
             console.error(msg)
@@ -129,8 +151,6 @@ module.exports = (app) => {
         const trx = await app.db.transaction()
 
         try {
-            const dataTransacao = new Date().toJSON().split("T")[0]
-
             await trx("Contas").update({saldo}).where({idConta})
 
             await trx("Transacoes").insert({idConta, valor, dataTransacao})

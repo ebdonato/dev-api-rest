@@ -7,8 +7,8 @@ POST {{URL}}/pessoa HTTP/1.1
 content-type: application/json
 
 {
-    "nome": "Eduardo Batista Donato",
-    "cpf": "33333333333",
+    "nome": "Cicrano de Tal",
+    "cpf": "22222222222",
     "dataNascimento": "1982-08-28"
 }
 
@@ -19,20 +19,20 @@ PUT {{URL}}/pessoa/80 HTTP/1.1
 content-type: application/json
 
 {
-    "nome": "Eduardo Batista Donato",
+    "nome": "Cicrano de Tal",
     "cpf": "22222222222",
-    "dataNascimento": "1982-08-28"
+    "dataNascimento": "1982-18-28"
 }
 
 ###
 
 # @name obterPessoa
-GET {{URL}}/pessoa/99 HTTP/1.1
+GET {{URL}}/pessoa/1 HTTP/1.1
 
 ###
 
 # @name excluirPessoa
-DELETE  {{URL}}/pessoa/3 HTTP/1.1
+DELETE  {{URL}}/pessoa/2 HTTP/1.1
 
 ###
 
@@ -42,7 +42,7 @@ content-type: application/json
 
 {
     "idPessoa": "1",
-    "limiteSaqueDiario": "192.25",
+    "limiteSaqueDiario": "1000",
     "flagAtivo": false,
     "tipoConta": "10",
     "dataCriacao": "2021-08-28"
@@ -51,7 +51,7 @@ content-type: application/json
 ###
 
 # @name atualizarConta
-PUT {{URL}}/conta/2 HTTP/1.1
+PUT {{URL}}/conta/1 HTTP/1.1
 content-type: application/json
 
 {
@@ -80,29 +80,45 @@ GET {{URL}}/conta/1/saldo HTTP/1.1
 ###
 
 # @name depositarConta
-PUT {{URL}}/conta/1/depositar HTTP/1.1
+PUT {{URL}}/conta/2/depositar HTTP/1.1
 content-type: application/json
 
 {
-    "valor": 10
+    "valor": 1000
 }
 
 ###
 
 # @name sacarConta
-PUT {{URL}}/conta/1/sacar HTTP/1.1
+PUT {{URL}}/conta/2/sacar HTTP/1.1
 content-type: application/json
 
 {
-    "valor": -10
+    "valor": -30
 }
 
 ###
 
 # @name ativarDesativarConta
-PUT {{URL}}/conta/1/ativar-desativar HTTP/1.1
+PUT {{URL}}/conta/2/ativar-desativar HTTP/1.1
 content-type: application/json
 
 {
-    "ativo": false
+    "ativo": true
+}
+
+###
+
+# @name obterExtratoCompleto
+GET {{URL}}/extrato/1 HTTP/1.1
+
+###
+
+# @name obterExtratoPeríodo
+GET {{URL}}/extrato/1 HTTP/1.1
+content-type: application/json
+
+{
+    "de": "2021-10-01",
+    "ate": "2021-10-07"
 }
