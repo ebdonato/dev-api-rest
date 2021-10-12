@@ -1,0 +1,8 @@
+.DS_Store
+.thumbs.db
+node_modules
+.env
+.vscode
+*.sql
+*.sqlite3
+db_data

@@ -1,0 +1,35 @@
+@URL = http://localhost:3000
+
+###
+
+# @name criarPessoa
+POST {{URL}}/pessoa HTTP/1.1
+content-type: application/json
+
+{
+    "nome": "Eduardo Batista Donato",
+    "cpf": "11111111111",
+    "dataNascimento": "1982-08-28"
+}
+
+###
+
+# @name atualizarPessoa
+PUT {{URL}}/pessoa/80 HTTP/1.1
+content-type: application/json
+
+{
+    "nome": "Eduardo Batista Donato",
+    "cpf": "22222222222",
+    "dataNascimento": "1982-08-28"
+}
+
+###
+
+# @name obterPessoa
+GET {{URL}}/pessoa/99 HTTP/1.1
+
+###
+
+# @name excluirPessoa
+DELETE  {{URL}}/pessoa/3 HTTP/1.1
