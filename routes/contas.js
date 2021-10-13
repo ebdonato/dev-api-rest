@@ -6,9 +6,7 @@ module.exports = (app) => {
 
     app.route("/conta/:idConta/saldo").get(app.api.contas.getAccountBalance)
 
-    app.route("/conta/:idConta/depositar").put(app.api.contas.accountTransaction)
-
-    app.route("/conta/:idConta/sacar").put(app.api.contas.accountTransaction)
+    app.route("/conta/:idConta/movimentar").put(app.api.contas.accountTransaction)
 
     app.route("/conta/:idConta/ativar-desativar").put(app.api.contas.changeAccountStatus)
 

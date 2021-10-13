@@ -78,7 +78,7 @@ GET {{URL}}/conta/1/saldo HTTP/1.1
 ###
 
 # @name depositarConta
-PUT {{URL}}/conta/1/depositar HTTP/1.1
+PUT {{URL}}/conta/1/movimentar HTTP/1.1
 content-type: application/json
 
 {
@@ -88,7 +88,7 @@ content-type: application/json
 ###
 
 # @name sacarConta
-PUT {{URL}}/conta/1/sacar HTTP/1.1
+PUT {{URL}}/conta/1/movimentar HTTP/1.1
 content-type: application/json
 
 {

@@ -1,20 +1,20 @@
 # O Desafio
 
-No contexto meios de pagamento, o desafio é construir uma API Rest para gestão de contas.
+No contexto dos meios de pagamento, o desafio é construir uma API Restful para gestão de contas.
 
 Mais detalhes no repositório [cdt-baas/desafio-dev-api-rest](https://github.com/cdt-baas/desafio-dev-api-rest).
 
 # A Solução
 
-A solução é baseada no framework [Express](https://expressjs.com/pt-br/) para a interface web, e no Mapeamento Objeto Relacional (ORM) [Knex.js](https://knexjs.org/) para construção do banco de dados e das consultas.
+A solução é baseada no framework [Express](https://expressjs.com/pt-br/) para a interface web, e no Mapeamento Objeto Relacional (ORM) [Knex.js](https://knexjs.org/) para construção do banco de dados e de suas consultas.
 
-Para organização dos arquivos/scripts, é utilizado o [Consign](https://github.com/jarradseers/consign)
+Para organização dos arquivos/scripts, é utilizado o [Consign](https://github.com/jarradseers/consign).
 
 # Manual de Execução
 
 A aplicação utiliza duas soluções de banco de dados dependendo do valor da variável de ambiente **NODE_ENV**.
 
-Caso esteja definida como _development_ (padrão), o banco de dados utilizado será SQLite, caso esteja definido como _production_, o banco de dados utilizado será Postgres.
+Caso a variável seja definida como _development_ (padrão), o banco de dados utilizado será SQLite, caso seja definido como _production_, o banco de dados utilizado será Postgres.
 
 No modo _development_, para executar a aplicação baste executar o _script_ **NPM** **_dev_**, que o arquivo do SQLite será criado.
 
@@ -29,15 +29,15 @@ NODE_ENV=production
 PG_CONNECTION_STRING=postgres://postgres:123456@localhost:5432/banco
 ```
 
-> As variáveis de ambiente podem ser definidas em um arquivo **.env** no diretório raiz. Para comodidade, foi adicionar um arquivo **.env.defaults** como exemplo.
+> As variáveis de ambiente podem ser definidas em um arquivo **.env** no diretório raiz. Para comodidade, foi adicionado no repositório um arquivo **.env.defaults** como exemplo.
 
-> No dois caos, _development_ ou _production_, a aplicação irá realizar migrações no banco de dados para criá-lo, conforme scprits descritos no diretório _./migrations_.
+> No dois caos, _development_ ou _production_, a aplicação irá realizar as migrações no banco de dados para criá-lo, conforme scprits descritos no diretório _./migrations_.
 
 ## Docker
 
-O repositório contém um arquivo para o Docker Compose.
-Também possui um Dockerfile para construção da imagem.
-Essas duas opções definem a variável de ambiente **NODE_ENV** para _production_, e consequentemente utilizando o Postgres como banco de dados.
+O repositório contém um arquivo para o **Docker Compose**. Também possui um arquivo **Dockerfile** para construção da imagem.
+
+Essas duas opções definem a variável de ambiente **NODE_ENV** para _production_, e consequentemente utilizam o Postgres como banco de dados.
 
 ## Utilizando Docker manualmente
 
@@ -85,23 +85,25 @@ Onde `some-network` é o nome da rede, `some-postgres` é o nome do container co
 
 # Descrição das Rotas da API
 
-# POST /pessoa
+A seguir a descrição das rotas (_endpoints_) da API Restful. Seguindo o padrão "VERBO HTTP" {{URL}}/rota.
 
-Cria uma nova _Pessoa_
+# POST {{URL}}/pessoa
+
+Cria uma nova _Pessoa_.
 
 ## Parâmetro
 
 ### URL
 
-Nenhum
+Nenhum.
 
 ### Corpo
 
 Objeto com as seguintes propriedades:
 
--   nome: Nome da pessoa
--   cpf: cpf da pessoa (apenas os 11 dígitos)
--   dataNascimento: data de nascimento da pessoa (formato JS válido)
+-   nome: Nome da pessoa;
+-   cpf: cpf da pessoa (apenas os 11 dígitos);
+-   dataNascimento: data de nascimento da pessoa (formato JS válido).
 
 Exemplo:
 
@@ -115,25 +117,25 @@ Exemplo:
 
 ## Retorno
 
-Nenhum
+Nenhum.
 
-# PUT /pessoa/:id
+# PUT {{URL}}/pessoa/:id
 
-Atualiza uma _Pessoa_
+Atualiza uma _Pessoa_.
 
 ## Parâmetro
 
 ### URL
 
--   id: ID da Pessoa
+-   id: ID da Pessoa.
 
 ### Corpo
 
 Objeto com as seguintes propriedades:
 
--   nome: Nome da pessoa
--   cpf: cpf da pessoa (apenas os 11 dígitos)
--   dataNascimento: data de nascimento da pessoa (formato JS válido)
+-   nome: Nome da pessoa;
+-   cpf: cpf da pessoa (apenas os 11 dígitos);
+-   dataNascimento: data de nascimento da pessoa (formato JS válido).
 
 Exemplo:
 
@@ -147,25 +149,25 @@ Exemplo:
 
 ## Retorno
 
-Nenhum
+Nenhum.
 
 # GET /pessoa/:id
 
-Obtém uma _Pessoa_
+Obtém uma _Pessoa_.
 
 ## Parâmetro
 
 ### URL
 
--   id: ID da Pessoa
+-   id: ID da Pessoa.
 
 ### Corpo
 
-Nenhum
+Nenhum.
 
 ## Retorno
 
-Objeto referente a uma pessoa:
+Objeto referente a uma pessoa.
 
 Exemplo:
 
@@ -178,42 +180,42 @@ Exemplo:
 }
 ```
 
-# DELETE /pessoa/:id
+# DELETE {{URL}}/pessoa/:id
 
-Exclui uma _Pessoa_
+Exclui uma _Pessoa_.
 
 ## Parâmetro
 
 ### URL
 
--   id: ID da Pessoa
+-   id: ID da Pessoa.
 
 ### Corpo
 
-Nenhum
+Nenhum.
 
 ## Retorno
 
-Nenhum
+Nenhum.
 
-# POST /conta
+# POST {{URL}}/conta
 
-Cria uma nova _Conta_
+Cria uma nova _Conta_.
 
 ## Parâmetro
 
 ### URL
 
-Nenhum
+Nenhum.
 
 ### Corpo
 
 Objeto com as seguintes propriedades:
 
--   idPessoa: ID da Pessoa
--   limiteSaqueDiario: valor decimal para o limite diário de saque
--   tipoConta: valor inteiro referente ao tipo da conta
--   dataCriacao: data de criação da conta (formato JS válido)
+-   idPessoa: ID da Pessoa;
+-   limiteSaqueDiario: valor decimal para o limite diário de saque;
+-   tipoConta: valor inteiro referente ao tipo da conta;
+-   dataCriacao: data de criação da conta (formato JS válido).
 
 Exemplo:
 
@@ -228,26 +230,26 @@ Exemplo:
 
 ## Retorno
 
-Nenhum
+Nenhum.
 
-# PUT /conta
+# PUT {{URL}}/conta
 
-Atualiza uma nova _Conta_
+Atualiza uma nova _Conta_.
 
 ## Parâmetro
 
 ### URL
 
--   id: ID da Conta
+-   id: ID da Conta.
 
 ### Corpo
 
 Objeto com as seguintes propriedades:
 
--   idPessoa: ID da Pessoa
--   limiteSaqueDiario: valor decimal para o limite diário de saque
--   tipoConta: valor inteiro referente ao tipo da conta
--   dataCriacao: data de criação da conta (formato JS válido)
+-   idPessoa: ID da Pessoa;
+-   limiteSaqueDiario: valor decimal para o limite diário de saque;
+-   tipoConta: valor inteiro referente ao tipo da conta;
+-   dataCriacao: data de criação da conta (formato JS válido).
 
 Exemplo:
 
@@ -262,25 +264,25 @@ Exemplo:
 
 ## Retorno
 
-Nenhum
+Nenhum.
 
-# GET /conta/:id
+# GET {{URL}}/conta/:id
 
-Obtém uma _Conta_
+Obtém uma _Conta_.
 
 ## Parâmetro
 
 ### URL
 
--   id: ID da Conta
+-   id: ID da Conta.
 
 ### Corpo
 
-Nenhum
+Nenhum.
 
 ## Retorno
 
-Objeto referente a uma conta:
+Objeto referente a uma conta.
 
 Exemplo:
 
@@ -296,41 +298,41 @@ Exemplo:
 }
 ```
 
-# DELETE /pessoa/:id
+# DELETE {{URL}}/pessoa/:id
 
-Exclui uma _Conta_
-
-## Parâmetro
-
-### URL
-
--   id: ID da Conta
-
-### Corpo
-
-Nenhum
-
-## Retorno
-
-Nenhum
-
-# GET /conta/:id/saldo
-
-Obtém o saldo de uma _Conta_
+Exclui uma _Conta_.
 
 ## Parâmetro
 
 ### URL
 
--   id: ID da Conta
+-   id: ID da Conta.
 
 ### Corpo
 
-Nenhum
+Nenhum.
 
 ## Retorno
 
-Objeto referente ao saldo da conta:
+Nenhum.
+
+# GET {{URL}}/conta/:id/saldo
+
+Obtém o saldo de uma _Conta_.
+
+## Parâmetro
+
+### URL
+
+-   id: ID da Conta.
+
+### Corpo
+
+Nenhum.
+
+## Retorno
+
+Objeto referente ao saldo da conta.
 
 Exemplo:
 
@@ -341,21 +343,21 @@ Exemplo:
 }
 ```
 
-# PUT /conta/:id/depositar ou /conta/:id/sacar
+# PUT {{URL}}/conta/:id/movimentar
 
-Realiza movimentação (depósito ou saque) em uma _Conta_
+Realiza movimentação (depósito ou saque) em uma _Conta_.
 
 ## Parâmetro
 
 ### URL
 
--   id: ID da Conta
+-   id: ID da Conta.
 
 ### Corpo
 
 Objeto com a seguinte propriedade:
 
--   valor: valor da movimentação: positivo para depósito e negativo para saque.
+-   valor: valor da movimentação, sendo que valores **positivos** para depósito e valores **negativos** para saque.
 
 Exemplo:
 
@@ -367,7 +369,7 @@ Exemplo:
 
 ## Retorno
 
-Objeto referente ao saldo da conta:
+Objeto referente ao saldo da conta.
 
 Exemplo:
 
@@ -378,15 +380,15 @@ Exemplo:
 }
 ```
 
-# PUT /conta/:id/ativar-desativar
+# PUT {{URL}}/conta/:id/ativar-desativar
 
-Altera a situação de uma _Conta_ (ativa ou bloqueada)
+Altera a situação de uma _Conta_ (ativa ou bloqueada).
 
 ## Parâmetro
 
 ### URL
 
--   id: ID da Conta
+-   id: ID da Conta.
 
 ### Corpo
 
@@ -404,7 +406,7 @@ Exemplo:
 
 ## Retorno
 
-Objeto referente à situação da conta:
+Objeto referente à situação da conta.
 
 Exemplo:
 
@@ -415,24 +417,24 @@ Exemplo:
 }
 ```
 
-# GET /extrato/:id
+# GET {{URL}}/extrato/:id
 
-Obtém o extrato com as movimentações de uma _Conta_
+Obtém o extrato com as movimentações de uma _Conta_.
 
 ## Parâmetro
 
 ### URL
 
--   id: ID da Conta
+-   id: ID da Conta.
 
 ### Corpo
 
 Objeto **opcional** com as seguintes propriedades:
 
--   de: data início do período das movimentações da conta (formato JS válido)
--   ate: data fim do período das movimentações da conta (formato JS válido)
+-   de: data início do período das movimentações da conta (formato JS válido);
+-   ate: data fim do período das movimentações da conta (formato JS válido).
 
-> Caso o objeto não seja enviado, todas as transações da conta serão retornadas.
+> Caso o objeto opcional com as datas não seja enviado na requisição, todas as transações da conta serão retornadas.
 
 Exemplo:
 
@@ -445,7 +447,7 @@ Exemplo:
 
 ## Retorno
 
-_Array_ de objetos referente às transações da conta:
+_Array_ de objetos referente às transações da conta.
 
 Exemplo:
 
